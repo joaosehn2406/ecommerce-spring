@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 
-@RestController
-@RequestMapping(value = "/users")
+@RestController  
+@RequestMapping(value = "/users") 
 public class UserResource {
 
 	
@@ -18,4 +18,6 @@ public class UserResource {
 		User u = new User(1L, "Jeter123", "jeter@gmail.com", "47 998250912", "senha123");
 		return ResponseEntity.ok().body(u);
 	}
+	
+	
 }
