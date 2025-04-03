@@ -36,6 +36,8 @@ public class TestConfig implements CommandLineRunner{
 		Category cat2 = new Category(null, "Books");
 		Category cat3 = new Category(null, "Computers");
 		
+		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+		
 		User u1 = new User(null, "João", "joao@gmail.com", "98888888", "123456");
 		User u2 = new User(null, "Momo", "momo@gmail.com", "9899898998", "123456");
 		
@@ -46,7 +48,6 @@ public class TestConfig implements CommandLineRunner{
 		
 		userRepository.saveAll(Arrays.asList(u1, u2));
 		orderRepository.saveAll(Arrays.asList(o1, o2, o3));
-		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
 	}
 	
 	
