@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController  
-@RequestMapping(value = "/products") 
+@RequestMapping(value = "/users") 
 public class UserResource {
 
 	@Autowired
