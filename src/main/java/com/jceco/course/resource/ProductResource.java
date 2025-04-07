@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jceco.course.entities.Product;
-import com.jceco.course.entities.User;
 import com.jceco.course.services.ProductService;
-import com.jceco.course.services.UserService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

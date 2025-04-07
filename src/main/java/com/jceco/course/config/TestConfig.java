@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.jceco.course.entities.Category;
 import com.jceco.course.entities.Order;
+import com.jceco.course.entities.OrderItem;
 import com.jceco.course.entities.Product;
 import com.jceco.course.entities.User;
 import com.jceco.course.entities.enums.OrderStatus;
 import com.jceco.course.repositories.CategoryRepository;
+import com.jceco.course.repositories.OrderItemRepository;
 import com.jceco.course.repositories.OrderRepository;
 import com.jceco.course.repositories.ProductRepository;
 import com.jceco.course.repositories.UserRepository;
@@ -33,6 +35,10 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
+	
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -69,6 +75,15 @@ public class TestConfig implements CommandLineRunner{
 		
 		userRepository.saveAll(Arrays.asList(u1, u2));
 		orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+		
+		OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+		OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+		OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+		
+		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+
+		
 	}
 	
 	
