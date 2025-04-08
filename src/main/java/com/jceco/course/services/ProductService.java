@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.jceco.course.entities.Product;
 import com.jceco.course.repositories.ProductRepository;
+import com.jceco.course.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class ProductService {
@@ -24,7 +25,7 @@ public class ProductService {
 	
 	public Product findById(Long id) {
 		Optional<Product> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public Product insert(Product prod) {
@@ -33,6 +34,21 @@ public class ProductService {
 	
 	public void delete(Long id) {
 	    repository.deleteById(id);
+	}
+	
+	
+	public Product update(Long id, Product prod) {
+		Product entity = repository.getReferenceById(id);
+		updateData(entity, prod);
+		return repository.save(entity);
+	}
+	
+	public void updateData(Product entity, Product p) {
+		entity.setDescription(p.getDescription());
+		entity.setImgUrl(p.getImgUrl());
+		entity.setName(p.getName());
+		entity.setPrice(p.getPrice());
+		entity.setCategories(p.getCategories());
 	}
 
 }
