@@ -27,4 +27,8 @@ public class ProductService {
 		return obj.get();
 	}
 	
+	public Product insert(Product prod) {
+		return repository.save(prod);
+	}
+	
 }
