@@ -91,4 +91,9 @@ public class OrderItem implements Serializable {
 	};
 	
 	
+	public Double getsubTotal() {
+		return price * quantity;
+	}
+	
+	
 }

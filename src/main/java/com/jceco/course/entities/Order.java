@@ -133,4 +133,10 @@ public class Order implements Serializable {
 		return true;
 	}
 
+	
+	public Double getTotal() {
+		return items.stream()
+				.mapToDouble(x -> x.getsubTotal())
+				.sum();
+	}
 }
