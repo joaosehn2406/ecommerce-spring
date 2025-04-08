@@ -8,5 +8,5 @@ import com.jceco.course.entities.Product;
 public interface ProductRepository extends JpaRepository<Product, Long>{
 	
 	
-	
+	boolean existsByCategories_Id(Long categoryId);
 }

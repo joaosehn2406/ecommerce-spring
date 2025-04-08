@@ -32,6 +32,20 @@ public class CategoryService {
 		return repository.save(cat);
 	}
 	
+	public Category update(Long id, Category cat) {
+		Category entity = repository.getReferenceById(id);
+		updateData(entity, cat);
+		return repository.save(entity);
+		
+	}
 	
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
+	
+	
+	public void updateData(Category c, Category cat) {
+		c.setName(cat.getName());
+	}
 	
 }
