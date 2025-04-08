@@ -14,6 +14,7 @@ import com.jceco.course.services.ProductService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -65,5 +66,14 @@ public class ProductResource {
 		p = service.update(id, p);
 		return ResponseEntity.ok().body(p);
 	}
+	
+	
+	@PatchMapping(value = "/{id}")
+	public ResponseEntity<Product> patch(@PathVariable Long id, @RequestBody Product p) {
+		p = service.patch(id, p);
+		return ResponseEntity.ok().body(p);
+	}
+	
+	
 
 }
