@@ -41,6 +41,28 @@ public class UserService {
 		updateData(entity, obj);
 		return repository.save(entity);
 	}
+	
+	
+	public User patch(Long id, User obj) {
+	    User entity = repository.findById(id)
+	            .orElseThrow(() -> new ResourceNotFoundException(id));
+
+	    if (obj.getName() != null) {
+	        entity.setName(obj.getName());
+	    }
+	    if (obj.getEmail() != null) {
+	        entity.setEmail(obj.getEmail());
+	    }
+	    if (obj.getPhone() != null) {
+	        entity.setPhone(obj.getPhone());
+	    }
+	    if (obj.getPassword() != null && !obj.getPassword().isBlank()) {
+	        entity.setPassword(obj.getPassword()); 
+	    }
+
+	    return repository.save(entity);
+	}
+
 
 
 	private void updateData(User entity, User obj) {

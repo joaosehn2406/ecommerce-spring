@@ -14,6 +14,7 @@ import com.jceco.course.services.UserService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -50,7 +51,7 @@ public class UserResource {
 		return ResponseEntity.created(uri).body(obj);
 	}
 	
-
+	
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		service.deleter(id);
@@ -62,4 +63,12 @@ public class UserResource {
 		obj = service.update(id, obj);
 		return ResponseEntity.ok().body(obj);
 	}
+	
+	
+	@PatchMapping(value = "/{id}")
+	public ResponseEntity<User> patch(@PathVariable Long id, @RequestBody User obj) {
+	    obj = service.patch(id, obj);
+	    return ResponseEntity.ok().body(obj);
+	}
+
 }
