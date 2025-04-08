@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.jceco.course.entities.Category;
 import com.jceco.course.repositories.CategoryRepository;
+import com.jceco.course.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class CategoryService {
@@ -24,7 +25,13 @@ public class CategoryService {
 	
 	public Category findById(Long id) {
 		Optional<Category> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
+	
+	public Category insert (Category cat) {
+		return repository.save(cat);
+	}
+	
+	
 	
 }
