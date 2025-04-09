@@ -43,6 +43,17 @@ public class CategoryService {
 		repository.deleteById(id);
 	}
 	
+	public Category patch(Long id, Category cat) {
+		Category entity = repository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException(id));
+		
+		if (cat.getName() != null) {
+			entity.setName(cat.getName());
+		}
+		
+		return repository.save(entity);
+	}
+	
 	
 	public void updateData(Category c, Category cat) {
 		c.setName(cat.getName());

@@ -17,6 +17,7 @@ import com.jceco.course.services.CategoryService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -57,6 +58,13 @@ public class CategoryResource {
 		
 		cat = service.update(id, cat);
 		return ResponseEntity.ok().body(cat);
+	}
+	
+	@PatchMapping(value = "/{id}")
+	public ResponseEntity<Category> patch (@PathVariable Long id, @RequestBody Category cat) {
+		cat = service.patch(id, cat);
+		return ResponseEntity.ok().body(cat);
+		
 	}
 
 	@DeleteMapping(value = "/{id}")
