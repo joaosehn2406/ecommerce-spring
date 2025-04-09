@@ -3,6 +3,7 @@ package com.jceco.course.services;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,6 +61,12 @@ public class OrderService {
 		Order entity = repository.getReferenceById(id);
 		updateData(entity, order);
 		return repository.save(entity);
+	}
+	
+	public void delete (Long id) {
+		Set<OrderItem> items = orderItemRepository.findByIdOrderId(id);
+		orderItemRepository.deleteAll(items);
+		repository.deleteById(id);
 	}
 
 	
