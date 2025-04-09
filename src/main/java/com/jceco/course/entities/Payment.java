@@ -1,5 +1,6 @@
 package com.jceco.course.entities;
 
+
 import java.io.Serializable;
 import java.time.Instant;
 
@@ -15,22 +16,21 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_payment")
-public class Payment implements Serializable{
-	
-
+public class Payment implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Instant moment;
-	
+
 	@JsonIgnore
 	@OneToOne
 	@MapsId
 	private Order order;
-	
-	public Payment() {}
+
+	public Payment() {
+	}
 
 	public Payment(Long id, Instant moment, Order order) {
 		super();
@@ -55,7 +55,6 @@ public class Payment implements Serializable{
 		this.moment = moment;
 	}
 
-	
 	public Order getOrder() {
 		return order;
 	}
@@ -87,7 +86,5 @@ public class Payment implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	};
-	
-	
+	}
 }

@@ -5,7 +5,6 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.jceco.course.entities.enums.OrderStatus;
 
 import jakarta.persistence.CascadeType;
@@ -22,34 +21,29 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tb_order")
 public class Order implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant moment;
+	
+	private Integer orderStatus;
 
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private User client;
-	
-	
-	private Integer orderStatus;
+
+	@OneToMany(mappedBy = "id.order")
+	private Set<OrderItem> items = new HashSet<>();
 	
 	@OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
 	private Payment payment;
 	
-	
-	@OneToMany(mappedBy = "id.order")
-	private Set<OrderItem> items = new HashSet<>();
-
 	public Order() {
-	};
+	}
 
-	public Order(Long id, Instant moment, OrderStatus orderStatus ,User client) {
+	public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
 		super();
 		this.id = id;
 		this.moment = moment;
@@ -80,7 +74,6 @@ public class Order implements Serializable {
 	public void setClient(User client) {
 		this.client = client;
 	}
-	
 
 	public OrderStatus getOrderStatus() {
 		return OrderStatus.valueOf(orderStatus);
@@ -91,15 +84,7 @@ public class Order implements Serializable {
 			this.orderStatus = orderStatus.getCode();
 		}
 	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 	
-	public Set<OrderItem> getItems(){
-		return items;
-	}
-
 	public Payment getPayment() {
 		return payment;
 	}
@@ -107,7 +92,19 @@ public class Order implements Serializable {
 	public void setPayment(Payment payment) {
 		this.payment = payment;
 	}
-
+	
+	public Set<OrderItem> getItems() {
+		return items;
+	}
+	
+	public Double getTotal() {
+		double sum = 0.0;
+		for (OrderItem x : items) {
+			sum += x.getsubTotal();
+		}
+		return sum;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -131,12 +128,5 @@ public class Order implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-
-	
-	public Double getTotal() {
-		return items.stream()
-				.mapToDouble(x -> x.getsubTotal())
-				.sum();
 	}
 }
