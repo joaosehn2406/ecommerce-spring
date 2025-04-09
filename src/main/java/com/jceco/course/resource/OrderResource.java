@@ -15,6 +15,7 @@ import com.jceco.course.services.OrderService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -46,6 +47,12 @@ public class OrderResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(order.getId()).toUri();
 		return ResponseEntity.created(uri).body(order);
+	}
+	
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<Order> put(@RequestBody Order order, @PathVariable Long id) {
+		order = service.put(order, id);
+		return ResponseEntity.ok().body(order);
 	}
 	
 }

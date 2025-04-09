@@ -54,7 +54,20 @@ public class OrderService {
 	    
 	    return savedOrder;
 	}
+	
+	
+	public Order put(Order order, Long id) {
+		Order entity = repository.getReferenceById(id);
+		updateData(entity, order);
+		return repository.save(entity);
+	}
 
+	
+	public void updateData(Order entity, Order o) {
+		entity.setClient(o.getClient());
+		entity.setOrderStatus(o.getOrderStatus());
+		entity.setPayment(o.getPayment());
+	}
 
 
 
