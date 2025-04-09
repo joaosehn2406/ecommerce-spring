@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
@@ -50,6 +51,13 @@ public class CategoryResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(cat.getId()).toUri();
 		return ResponseEntity.created(uri).body(cat);
 	}
+	
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<Category> update(@PathVariable Long id, @RequestBody Category cat) {
+		
+		cat = service.update(id, cat);
+		return ResponseEntity.ok().body(cat);
+	}
 
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
@@ -57,7 +65,7 @@ public class CategoryResource {
 		if (productRepo.existsByCategories_Id(id)) {
 			throw new ResponseStatusException(
 		
-			HttpStatus.BAD_REQUEST, 
+			HttpStatus.NOT_FOUND, 
 			"Não é possível deletar a categoria pois existem produtos associados a ela.");
 		};
 		
