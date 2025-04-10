@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.jceco.course.entities.Order;
@@ -15,6 +17,7 @@ import com.jceco.course.entities.User;
 import com.jceco.course.repositories.OrderItemRepository;
 import com.jceco.course.repositories.OrderRepository;
 import com.jceco.course.repositories.UserRepository;
+import com.jceco.course.services.exceptions.DataBaseException;
 import com.jceco.course.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -28,6 +31,7 @@ public class OrderService {
 	
 	@Autowired
 	private UserRepository userRepository;
+
 	
 	public List<Order> findAll(){
 		
@@ -68,8 +72,17 @@ public class OrderService {
 	
 	public void delete (Long id) {
 		Set<OrderItem> items = orderItemRepository.findByIdOrderId(id);
-		orderItemRepository.deleteAll(items);
-		repository.deleteById(id);
+		
+		try {
+			orderItemRepository.deleteAll(items);
+			repository.deleteById(id);
+		}
+		catch(EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException(id);
+		}
+		catch(DataIntegrityViolationException e) {
+			throw new DataBaseException(e.getMessage());
+		}
 	}
 	
 	public Order patch(Order order, Long id) {
