@@ -52,7 +52,7 @@ A API realiza o gerenciamento completo de um sistema de vendas, incluindo:
 
 ---
 
-## ✨ Diferenciais
+## 📈 Diferenciais
 
 ⚙️ **Uso de JPA com Hibernate** para mapeamento automático das entidades  
 🔁 **Relacionamentos complexos tratados com elegância** usando `@OneToMany`, `@ManyToOne`, `@ManyToMany`, `@EmbeddedId`, `@RestController`,   
@@ -87,7 +87,7 @@ A API realiza o gerenciamento completo de um sistema de vendas, incluindo:
 
 1. Clone o projeto:
 ```bash
-git clone https://github.com/seuusuario/seu-projeto-ecommerce.git
+git clone https://github.com/joaosehn2406/ecommerce-spring.git
 cd seu-projeto-ecommerce
 ```
 
