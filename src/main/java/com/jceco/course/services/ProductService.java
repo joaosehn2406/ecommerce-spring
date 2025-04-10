@@ -14,6 +14,8 @@ import com.jceco.course.repositories.ProductRepository;
 import com.jceco.course.services.exceptions.DataBaseException;
 import com.jceco.course.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class ProductService {
 
@@ -49,9 +51,14 @@ public class ProductService {
 	
 	
 	public Product update(Long id, Product prod) {
-		Product entity = repository.getReferenceById(id);
-		updateData(entity, prod);
-		return repository.save(entity);
+		try {
+			Product entity = repository.getReferenceById(id);
+			updateData(entity, prod);
+			return repository.save(entity);
+		}
+		catch(EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 	
 	

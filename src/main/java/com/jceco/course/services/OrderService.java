@@ -20,6 +20,8 @@ import com.jceco.course.repositories.UserRepository;
 import com.jceco.course.services.exceptions.DataBaseException;
 import com.jceco.course.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class OrderService {
 
@@ -65,9 +67,16 @@ public class OrderService {
 	
 	
 	public Order put(Order order, Long id) {
-		Order entity = repository.getReferenceById(id);
-		updateData(entity, order);
-		return repository.save(entity);
+		try {
+			Order entity = repository.getReferenceById(id);
+			updateData(entity, order);
+			return repository.save(entity);
+		}
+		catch(EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
+		
+		
 	}
 	
 	public void delete (Long id) {

@@ -14,6 +14,8 @@ import com.jceco.course.repositories.CategoryRepository;
 import com.jceco.course.services.exceptions.DataBaseException;
 import com.jceco.course.services.exceptions.ResourceNotFoundException;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class CategoryService {
 
@@ -36,9 +38,15 @@ public class CategoryService {
 	}
 	
 	public Category update(Long id, Category cat) {
-		Category entity = repository.getReferenceById(id);
-		updateData(entity, cat);
-		return repository.save(entity);
+		try {
+			Category entity = repository.getReferenceById(id);
+			updateData(entity, cat);
+			return repository.save(entity);
+		}
+		catch(EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
+		
 		
 	}
 	
