@@ -129,7 +129,7 @@ Perfeito para testes e aprendizado.
 
 ## 📄 Licença
 
-Este projeto está sob a licença MIT. Consulte o arquivo `LICENSE` para mais detalhes.
+Este projeto está sob a licença MIT. Consulte [MIT License](https://mit-license.org/) para mais detalhes.
 
 ---
 
