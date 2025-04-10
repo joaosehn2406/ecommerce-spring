@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 import com.jceco.course.entities.Order;
 import com.jceco.course.entities.OrderItem;
 import com.jceco.course.entities.Payment;
+import com.jceco.course.entities.User;
 import com.jceco.course.repositories.OrderItemRepository;
 import com.jceco.course.repositories.OrderRepository;
+import com.jceco.course.repositories.UserRepository;
 import com.jceco.course.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -24,7 +26,8 @@ public class OrderService {
 	@Autowired
 	private OrderItemRepository orderItemRepository;
 	
-
+	@Autowired
+	private UserRepository userRepository;
 	
 	public List<Order> findAll(){
 		
@@ -68,6 +71,24 @@ public class OrderService {
 		orderItemRepository.deleteAll(items);
 		repository.deleteById(id);
 	}
+	
+	public Order patch(Order order, Long id) {
+	    Order entity = repository.findById(id)
+	            .orElseThrow(() -> new ResourceNotFoundException(id));
+
+	    if (order.getClient() != null && order.getClient().getId() != null) {
+	        User client = userRepository.findById(order.getClient().getId())
+	                .orElseThrow(() -> new RuntimeException("Cliente não encontrado."));
+	        entity.setClient(client);
+	    }
+
+	    if (order.getOrderStatus() != null) {
+	        entity.setOrderStatus(order.getOrderStatus());
+	    }
+
+	    return repository.save(entity);
+	}
+
 
 	
 	public void updateData(Order entity, Order o) {
