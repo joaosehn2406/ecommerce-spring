@@ -11,6 +11,7 @@
   <img src="https://img.shields.io/badge/Java-17-blue?style=for-the-badge&logo=java"/>
   <img src="https://img.shields.io/badge/PostgreSQL-Database-blue?style=for-the-badge&logo=postgresql"/>
   <img src="https://img.shields.io/badge/JPA-Hibernate-orange?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Swagger-Documentation-yellow?style=for-the-badge&logo=swagger"/>
 </div>
 
 ---
@@ -100,7 +101,7 @@ cd seu-projeto-ecommerce
 
 4. Acesse os endpoints via Postman ou front-end (porta padrão: `http://localhost:8080`).
 
-
+5. Para **acessar a documentação** digite `http://localhost:8080/swagger-ui/index.html`, após rodar o comando clean install -DskipTests
 ---
 
 ## 🧪 Testes e Popular Dados
